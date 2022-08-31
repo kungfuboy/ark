@@ -1,4 +1,4 @@
-import parseAlice from './parseAlice'
+import parseAlice from './parserAlice'
 
 export default { parseAlice }
 
