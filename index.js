@@ -4,7 +4,7 @@ const path = require('path')
 const commander = require('commander')
 const prettier = require('prettier')
 const _ = require('lodash')
-const { parseLop } = require('./dist/lop.js')
+// const { parseLop } = require('./dist/lop.js')
 const Tifa = require('./dist/tifa.js')
 const parseMikasa = require('./dist/mikasa.js')
 const packageJson = require('./package.json')
@@ -16,7 +16,7 @@ const {
   findAllFile,
   readStream,
   text2Stream
-} = require('./tool.js')
+} = require('./tools.js')
 
 const formatOption = { semi: false, singleQuote: true, trailingComma: 'none' }
 
@@ -40,7 +40,7 @@ commander
     }
     const _path = path.join(process.cwd(), jsFile)
     const rl = readStream(_path)
-    const mdc = await parseLop(rl, _path)
+    // const mdc = await parseLop(rl, _path)
     const _filePath = _path.replace(/[^/]+$/m, mdFile.replace(/\.md$/m, ''))
     fs.writeFileSync(`${_filePath}.md`, mdc)
     successlog(`Compile ${_filePath}.md file is success.`)
