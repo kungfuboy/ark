@@ -1,0 +1,31 @@
+{
+    "editor.formatOnSave": true,
+    "javascript.format.semicolons": "remove",
+    "javascript.preferences.quoteStyle": "single",
+    "prettier.semi": false,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "none",
+    "vetur.validation.template": false,
+    "vetur.format.defaultFormatterOptions": {
+      "js-beautify-html": {
+        "wrap_attributes": "force-expand-multiline"
+      },
+      "prettyhtml": {
+        "printWidth": 100,
+        "singleQuote": false,
+        "wrapAttributes": false,
+        "sortAttributes": false
+      },
+      "prettier": {
+        "semi": false,
+        "singleQuote": true,
+        "trailingComma": "none"
+      }
+    },
+    "diffEditor.wordWrap": "on",
+    "editor.wordWrap": "on",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true
+  }
+  
