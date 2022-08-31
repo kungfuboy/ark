@@ -28,6 +28,7 @@
     "uid": "^2.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.184",
     "esbuild": "^0.15.6",
     "nodemon": "^2.0.19",
     "rollup": "^2.79.0",
