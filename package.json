@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "rollup --config config/rollup.config.js",
+    "debug": "nodemon --config config/nodemon.json",
     "dev:mikasa": "rollup --config config/rollup.mikasa.config.js -w",
     "dev:tifa": "rollup --config config/rollup.tifa.config.js -w",
-    "build": "rollup --config config/rollup.config.js",
-    "debug": "nodemon --config config/nodemon.json"
+    "dev:alice": "rollup --config config/rollup.alice.config.js -w"
   },
   "bin": {
     "ark": "index.js"

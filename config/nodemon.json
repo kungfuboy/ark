@@ -1,9 +1,5 @@
 {
-  "watch": [
-    "*/src/*",
-    "./t/*",
-    "/index.js"
-  ],
-  "ext": "js,taw,mid,fee,lop,tea,mikasa,levi,ts,t",
+  "watch": ["*/src/*", "./t/*", "/index.js"],
+  "ext": "js,taw,mid,fee,alice,tea,mikasa,levi,ts,t",
   "exec": "ark test ./packages/tifa/t/opcode.t"
 }

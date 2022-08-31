@@ -13,7 +13,8 @@ const formatJs = (code) =>
 
 const rollupList = [
   { name: 'mikasa', format: 'cjs' },
-  { name: 'tifa', format: 'cjs' }
+  { name: 'tifa', format: 'cjs' },
+  { name: 'alice', format: 'cjs' }
 ]
 const ignorePackage = [
   'lodash/fp',
@@ -69,7 +70,7 @@ fs.writeFileSync('./config/rollup.config.js', formatJs(rollupConfigJs()))
 //* 生成 nodemon.json 文件
 const nodemonConfig = {
   watch: ['*/src/*', './t/*', '/index.js'],
-  ext: 'js,taw,mid,fee,lop,tea,mikasa,levi,ts,t',
+  ext: 'js,taw,mid,fee,alice,tea,mikasa,levi,ts,t',
   exec: 'ark test ./packages/tifa/t/opcode.t'
 }
 fs.writeFileSync(
