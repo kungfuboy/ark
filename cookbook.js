@@ -57,7 +57,7 @@ Ark中的各个小语言，在设计时，首先考虑的是常见的业务需�
 
 ### 文档生成工具 —— Alice
 
-@~./packages/alice/src/index.ts
+@link ./packages/alice/src/index.ts
 
 +++
 

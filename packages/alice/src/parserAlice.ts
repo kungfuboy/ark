@@ -9,8 +9,8 @@ const readStream = (url) =>
     crlfDelay: Infinity
   })
 
-const toLatex = (data) => {
-  return data
+const toLatex = (data) =>
+  data
     .trim()
     .replace(/\${2} /g, '$$$\n')
     .replace(/ \${2}/g, '\n$$$\n')
@@ -28,7 +28,7 @@ const toLatex = (data) => {
     .replace(/~/g, ' \\sim ')
     .replace(/ +/g, ' ')
     .replace(/ /g, ' \\quad ')
-}
+
 class Stack {
   constructor() {
     this.stack = []
@@ -42,9 +42,9 @@ class Stack {
   }
   addCache(data) {
     const isLatex = data.match(/^\${2}.+\${2}$/gm)
-    this.cache += isLatex ? this.filerData(data) : data
+    this.cache += isLatex ? this.toLatex(data) : data
   }
-  filerData(data) {
+  toLatex(data) {
     return toLatex(data)
   }
   getData() {
@@ -79,16 +79,16 @@ async function parseAlice(rl, ph) {
       stack.addCache(`<div style="page-break-after: always;"></div>` + '\n')
       continue
     }
-    const importReg = matchplus(line, /^\@\=\S+$/m, /^@=/m)
+    const importReg = matchplus(line, /^\@get {0,1}\S+$/m, /^@get {0,1}/m)
     if (importReg) {
       const filePath = path.join(ph, `../${importReg[0]}`)
       const file = fs.readFileSync(filePath, 'utf8')
       stack.addCache(file + '\n')
       continue
     }
-    const requireReg = matchplus(line, /^\@\~\S+$/m, /^\@\~/m)
+    const requireReg = matchplus(line, /^\@link {0,1}\S+$/m, /^\@link {0,1}/m)
     if (requireReg) {
-      const filePath = path.join(ph, `../${requireReg[0]}`)
+      const filePath = path.join(ph, `../${requireReg[0].trim()}`)
       if (pathCache.includes(filePath)) {
         throw new Error(
           `行号 ${lineIndex}：引用${filePath}文件会造成无限引用，请管理好引用关系！`

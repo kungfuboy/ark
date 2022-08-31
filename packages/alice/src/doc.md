@@ -5,8 +5,8 @@
 ```
 /*!! 开头
   ...
-  @=./xx.md
-  @~./xxx.js
+  @get ./xx.md
+  @link ./xxx.js
 !!*/ 结束
 ```
 

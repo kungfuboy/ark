@@ -31,7 +31,7 @@ type 除了支持元素类型外，还支持 xpath
 [xpath '//*[@id="yDmH0d"]/c-wiz/div/div[2]/c-wiz/div[1]/nav/div[2]/button/div']
 ```
 
-@=./config.md
+@get ./config.md
 
 #### 断言
 
