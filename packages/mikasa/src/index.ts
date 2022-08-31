@@ -1,5 +1,5 @@
 const _ = require('lodash')
-import { matchplus, getBeforeSpace } from '../utils'
+import { matchplus, getBeforeSpace } from '../../utils'
 
 const handleCase = (data) =>
   data.map(({ block, cases }) => ({

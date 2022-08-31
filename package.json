@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:mikasa": "rollup --config config/rollup.mikasa.config.js -w",
+    "dev:tifa": "rollup --config config/rollup.tifa.config.js -w",
+    "build": "rollup --config config/rollup.config.js",
+    "debug": "nodemon --config config/nodemon.json"
   },
   "bin": {
     "ark": "index.js"
