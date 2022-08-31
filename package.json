@@ -1,0 +1,34 @@
+{
+  "name": "ark",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "ark": "index.js"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "commander": "^9.4.0",
+    "figlet": "^1.5.2",
+    "js-md5": "^0.7.3",
+    "lodash": "^4.17.21",
+    "prettier": "^2.7.1",
+    "uid": "^2.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.6",
+    "nodemon": "^2.0.19",
+    "rollup": "^2.79.0",
+    "rollup-plugin-esbuild": "^4.10.1",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}
