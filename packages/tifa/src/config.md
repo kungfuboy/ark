@@ -6,28 +6,16 @@
 | 'text' | 输入     | 输入框             |      |
 | hover  | 鼠标悬浮 | 任何元素           |      |
 
-##### 随机生成
-
-```
-{text:5-10}
-```
-
-{} 用于表示随机生成字符串或数字，支持 text（文本）、number (数字)、date、time、date-time、sentence（句子）几种类型的生成。
-
 ##### 特殊指令
 
-| 指令    | 功能描述           | Demo                      |
-| ------- | ------------------ | ------------------------- |
-| goto    | 用于跳转           | goto http://google.com    |
-| wait    | 等待时间或网络延迟 | wait / wait 1s            |
-| shot    | 高亮元素           | shot Nick                 |
-| gif     | Gif 录制           | gif start/end             |
-| video   | 录制视频           | video start/end           |
-| capture | 截图               | capture                   |
-| `>>`    | 描述               | >> [S]/[A] 这里是一段描述 |
-| var     | 声明常量           | var $username = Jacky     |
-| scroll  | 滚动               |                           |
-| find    | 准备查找元素       |                           |
+| 指令    | 功能描述     | Demo                   |
+| ------- | ------------ | ---------------------- |
+| goto    | 用于跳转     | goto http://google.com |
+| wait    | 等待时间     | wait / wait 1s         |
+| shot    | 高亮元素     | shot Nick              |
+| capture | 截图         | capture                |
+| var     | 声明常量     | var Jacky = $username  |
+| find    | 准备查找元素 |                        |
 
 ##### 配置文件
 
