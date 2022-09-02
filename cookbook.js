@@ -21,11 +21,11 @@ Ark 是一套帮助开发者快速生成代码的工具集，目前主要面向U
 ### 安装 Ark
 
 ```bash
-$ pnpm install arks --global 
+$ pnpm install ark-pkg --global 
 # or
-$ yarn global add arks
+$ yarn global add ark-pkg
 # or
-$ npm install -g arks
+$ npm install -g ark-pkg
 ```
 
 安装成功后即可在全局使用`ark`命令，如：
