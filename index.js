@@ -154,15 +154,15 @@ commander
       const ast = await Tifa.parser(rl)
       const content = Tifa.generator(ast, { config: conf, isDebug: debug })
       const code = prettier.format(content, fomatJs)
-      fs.writeFileSync(_path.replace(/\.t/g, '.ast.js'))
-      fs.writeFileSync(
-        _path.replace(/\.t/g, '测试用例.md'),
-        Tifa.astdoc(
-          `${path.basename(_path.replace(/\.t/g, '测试用例'))}`,
-          ast,
-          config
-        )
-      )
+      // fs.writeFileSync(_path.replace(/\.t/g, '.ast.js'))
+      // fs.writeFileSync(
+      //   _path.replace(/\.t/g, '测试用例.md'),
+      //   Tifa.astdoc(
+      //     `${path.basename(_path.replace(/\.t/g, '测试用例'))}`,
+      //     ast,
+      //     config
+      //   )
+      // )
       fs.writeFileSync(_path.replace(/\.t/g, '.test.js'), code)
       successlog(
         `📐 Compile success. ${path.basename(
