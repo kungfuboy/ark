@@ -332,18 +332,18 @@ const diffXY = (list, yline, data) => {
     if (itm === 'Yline') {
       // * 贴近上一条 yline 线的分数高
       let scoreCache = 1
-      let distanceCache = 0
+      let distanceRuler = 0
       list.forEach((item, index) => {
         item.forEach((it, i) => {
           // ! 此处用 getElementCoor 函数获取top会得到 NaN
           const distance = it.getBoundingClientRect().top - yline
           if (distance > 0) {
-            if (distanceCache === 0) {
-              // * 如果 distanceCache 还没有值，则初始化
-              distanceCache = distance
+            if (distanceRuler === 0) {
+              // * 如果 distanceRuler 还没有值，则初始化
+              distanceRuler = distance
             }
-            if (distance <= distanceCache) {
-              distanceCache = distance
+            if (distance <= distanceRuler) {
+              distanceRuler = distance
               score[index][i] += scoreCache
               scoreCache++
             }
@@ -355,19 +355,19 @@ const diffXY = (list, yline, data) => {
       while (index < list.length - 1) {
         // * Y轴比较
         const [aList, bList] = list.slice(index, index + 2)
-        let distanceCache = 0
+        let distanceRuler = 0
         aList.forEach((left, i) => {
           let scoreCache = 1
           bList.forEach((right, j) => {
             const distance = distanceY(left, right)
             if (distance > 0) {
-              if (distanceCache === 0) {
-                // * 如果 distanceCache 还没有值，则初始化
-                distanceCache = distance
+              if (distanceRuler === 0) {
+                // * 如果 distanceRuler 还没有值，则初始化
+                distanceRuler = distance
               }
               // * 此处必须要小于等于
-              if (distance <= distanceCache) {
-                distanceCache = distance
+              if (distance <= distanceRuler) {
+                distanceRuler = distance
                 score[index][i] += scoreCache
                 score[index + 1][j] += scoreCache
                 scoreCache += 1
@@ -382,19 +382,19 @@ const diffXY = (list, yline, data) => {
       while (index < list.length - 1) {
         // * X轴比较
         const [aList, bList] = list.slice(index, index + 2)
-        let distanceCache = 0
+        let distanceRuler = 0
         let scoreCache = 1
         aList.forEach((left, i) => {
           bList.forEach((right, j) => {
             const distance = distanceX(left, right)
             if (distance > 0) {
-              if (distanceCache === 0) {
-                // * 如果 distanceCache 还没有值，则初始化
-                distanceCache = distance
+              if (distanceRuler === 0) {
+                // * 如果 distanceRuler 还没有值，则初始化
+                distanceRuler = distance
               }
               // * 此处必须要小于等于
-              if (distance <= distanceCache) {
-                distanceCache = distance
+              if (distance <= distanceRuler) {
+                distanceRuler = distance
                 score[index][i] += scoreCache * scoreUnit
                 score[index + 1][j] += scoreCache * scoreUnit
                 scoreCache += 1
@@ -414,6 +414,7 @@ const diffXY = (list, yline, data) => {
 
 const findElementLocation = (matrix) => {
   /**
+   * 主要函数
    * 初始化权重矩阵
    */
   // * 初始化权重矩阵
@@ -431,7 +432,7 @@ const findElementLocation = (matrix) => {
     it.forEach((_, rowIndex) => {
       // * New row
       const [leftElList, rightElList] = it.slice(rowIndex, rowIndex + 2)
-      let distanceCache = 0
+      let distanceRuler = 0
       let scoreCache = 1
       const scoreUnit = rowIndex + 1
       leftElList.forEach((leftEl, i) => {
@@ -440,13 +441,13 @@ const findElementLocation = (matrix) => {
           // * 求得左右两元素之间的距离
           const distance = distanceX(leftEl, rightEl)
           if (distance > 0) {
-            if (distanceCache === 0) {
-              distanceCache = distance
+            if (distanceRuler === 0) {
+              distanceRuler = distance
             }
             // * 这个判断不等式必须是<，而不能是<=, 否则在处理如下布局时会有问题
             // * [[a, b], [a, b], [b, c]]
-            // * 最终得解应该是 abc，如果用<=，则可能得解 bbc
-            if (distance < distanceCache) {
+            // * 最终得解应该是 abc，如果用 <=，则可能得解 bbc
+            if (distance < distanceRuler) {
               scoreMatrix[index][rowIndex][i] += scoreCache * scoreUnit
               scoreMatrix[index][rowIndex + 1][j] += scoreCache * scoreUnit
               scoreCache += 1
