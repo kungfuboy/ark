@@ -56,7 +56,7 @@ commander
   .description('数据收集和处理工具')
   .action(async (dir, { debug = false, ...args }) => {
     await outputLogo('Mikasa')
-    const { suffix, file, execute, tifaConf } = args
+    const { suffix, file, execute, tifaConf = './tifa.config.js' } = args
     const dirPath = path.join(process.cwd(), dir)
     const fileList = file
       ? [path.join(dirPath, `./${file}`)]
@@ -154,7 +154,7 @@ commander
       const ast = await Tifa.parser(rl)
       const content = Tifa.generator(ast, { config: conf, isDebug: debug })
       const code = prettier.format(content, fomatJs)
-      // fs.writeFileSync(_path.replace(/\.t/g, '.ast.js'))
+      // debug && fs.writeFileSync(_path.replace(/\.t/g, '.ast.js'), ast)
       // fs.writeFileSync(
       //   _path.replace(/\.t/g, '测试用例.md'),
       //   Tifa.astdoc(

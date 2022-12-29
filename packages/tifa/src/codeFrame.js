@@ -36,7 +36,9 @@ const findInputElement = (el = null, value = '') => {
   const eleLayer = el || document
   return Array.from(eleLayer.querySelectorAll('input'))
     .filter((it) => !['radio', 'hidden', 'submit'].includes(it.type))
-    .filter((it) => it.value === value || it.placeholder === value)
+    .filter((it) =>
+      value != null ? it.value === value || it.placeholder === value : true
+    )
 }
 
 const findTextElement = (el = null, label = null) => {
@@ -51,13 +53,15 @@ const findTextElement = (el = null, label = null) => {
     .filter((it) => it.innerText.trim() === label.trim())
 }
 
-const findImgElement = (el = null) => {
+const findImgElement = (el = null, other = []) => {
   const eleLayer = el || document
   const svg = Array.from(eleLayer.getElementsByTagName('svg'))
   const img = Array.from(eleLayer.getElementsByTagName('img'))
-  const iconpark = Array.from(eleLayer.getElementsByTagName('iconpark-icon'))
-  // console.log(svg.concat(img))
-  return svg.concat(img).concat(iconpark)
+  const otherImg = other
+    .map((it) => Array.from(eleLayer.getElementsByTagName(it)))
+    .flat(Infinity)
+  // console.log(otherImg)
+  return svg.concat(img).concat(otherImg)
 }
 
 const highlightElement = (el, { color } = {}) => {
@@ -412,6 +416,13 @@ const diffXY = (list, yline, data) => {
   return score.map(findTarget)
 }
 
+const filterByCondition = (el, condition) =>
+  condition.every((it) => {
+    const [key, value] = it.split(':').map((it) => it.trim())
+    const target = el.getBoundingClientRect()
+    return target[key] === Number(value.replace(/px/, ''))
+  })
+
 const findElementLocation = (matrix) => {
   /**
    * 主要函数
@@ -515,6 +526,7 @@ export const funcCode = `
   const distanceX = ${distanceX.toString()}
   const distanceY = ${distanceY.toString()}
   const filterYaxis = ${filterYaxis.toString()}
+  const filterByCondition = ${filterByCondition.toString()}
   const countYline = ${countYline.toString()}
   const filterByX = ${filterByX.toString()}
   const filterByY = ${filterByY.toString()}

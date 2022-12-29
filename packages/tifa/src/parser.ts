@@ -28,6 +28,9 @@ const NickHash = () => {
     },
     set(el: string, type: string) {
       return hash.set(el, type)
+    },
+    list() {
+      return hash
     }
   }
 }
@@ -42,6 +45,22 @@ const whatAction = (el: string) => {
     .set('img', ['click', 'hover'])
     .set('upload', ['click', 'upload'])
   return hash.get(el)
+}
+
+const parseElement = (el: string) => {
+  const result: any = { name: null, value: null, condition: '' }
+  const name = el.trim().split(' ').at(0)
+  if (['button', 'input', 'select', 'label', 'img'].includes(name.trim())) {
+    result.name = name.trim()
+  }
+  if (/(?<= ').+(?=')/.test(el)) {
+    result.value = `'${el.match(/(?<= ').+(?=')/).at(0)}'`
+  }
+  const [, condition] = matchCouple(el)('{', '}')
+  if (condition) {
+    result.condition = condition
+  }
+  return result
 }
 
 const parserOpcode = (line: string) => {
@@ -109,19 +128,24 @@ const parser = async (rl: string) => {
         if (other == null) {
           throw new Error(`元素书写不合法, 请检查第${lineNo}行: ${_line}`)
         }
-        const [element, ...value] = el.split(' ')
+        const element = parseElement(el)
         const next = new Next(other)
         const token = next.next()
         const nick = token == '=' ? next.next() : ''
-        _line = token == '=' ? next.remain() : other
-        nickHash.set(nick, element)
+        nickHash.set(nick, element.name)
         cache.push({
-          element,
-          value: value ? value.join(' ') : '',
+          element: element.name,
+          value: element.value,
+          condition:
+            element?.condition
+              .split(';')
+              .map((it: any) => it.trim())
+              .filter((it: any) => !!it) || [],
           // TODO attr: attr || null,
           nick
         })
-      } while (_line)
+        _line = token == '=' ? next.remain() : other
+      } while (_line.trim())
       elementCache.push(cache)
       continue
     }
@@ -153,7 +177,7 @@ const parser = async (rl: string) => {
       // console.log(isFind)
       isParseElement = true
       const find = isFind.slice(0, 1)[0]
-      const feature = {
+      const feature: any = {
         '(!)': 'unfind',
         '(<)': 'right',
         '(>)': 'left',

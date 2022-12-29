@@ -19,28 +19,42 @@ const setId = (nick, random) => {
   idHash.set(nick, random)
 }
 
-const generateFind = ({ value }) => {
-  const findCode = ({ element, value }) => {
-    if (value.trim().indexOf('xpath:') === 1) {
+const generateFind = ({ value }, config: any) => {
+  const findCode = ({ element, value = '', condition = [] }) => {
+    if (value?.trim().indexOf('xpath:') === 1) {
       // * 'xpath:xxx' indexOf时需要将前面的引号算在内
       return `findXPathElement(${value.replace('xpath:', '')})`
     }
     if (element === 'input') {
-      return `findInputElement(layer, ${value}).filter(it => filterYaxis(it, yBaseLine))`
+      return `findInputElement(layer, ${value}).filter(it => filterByCondition(it, ${JSON.stringify(
+        condition
+      )})).filter(it => filterYaxis(it, yBaseLine))`
     }
     if (element === 'button') {
-      return `findButtonElement(layer, ${value}).filter(it => filterYaxis(it, yBaseLine))`
+      return `findButtonElement(layer, ${value}).filter(it => filterByCondition(it, ${JSON.stringify(
+        condition
+      )})).filter(it => filterYaxis(it, yBaseLine))`
     }
     if (element === 'label') {
-      return `findTextElement(layer, ${value}).filter(it => filterYaxis(it, yBaseLine))`
+      return `findTextElement(layer, ${value}).filter(it => filterByCondition(it, ${JSON.stringify(
+        condition
+      )})).filter(it => filterYaxis(it, yBaseLine))`
     }
     if (element === 'select') {
-      return `findSelectElement(layer, ${value}).filter(it => filterYaxis(it, yBaseLine))`
+      return `findSelectElement(layer, ${value}).filter(it => filterByCondition(it, ${JSON.stringify(
+        condition
+      )})).filter(it => filterYaxis(it, yBaseLine))`
     }
     if (element === 'img') {
-      return `findImgElement(layer, ${value}).filter(it => filterYaxis(it, yBaseLine))`
+      return `findImgElement(layer, ${JSON.stringify(
+        config?.elements?.img
+      )}).filter(it => filterByCondition(it, ${JSON.stringify(
+        condition
+      )})).filter(it => filterYaxis(it, yBaseLine))`
     }
-    return `findTextElement(layer, ${value})`
+    return `findTextElement(layer, ${value}).filter(it => filterByCondition(it, ${JSON.stringify(
+      condition
+    )}))`
   }
   const defindCode = ({ nick }, index, i) => {
     if (!nick) {
@@ -274,7 +288,6 @@ const generator = (
   stack: StackItemType[],
   { config = {}, isDebug = false }
 ) => {
-  // console.log(JSON.stringify(stack, null, 2))
   const _config = Object.assign(qconfig, config)
   const code = stack
     .map(({ type, ...it }: any) => {
@@ -296,7 +309,7 @@ const generator = (
           const wait = async (ms) => new Promise((resolve) => setTimeout(resolve, ms))
           await wait(500)
           ${funcCode}
-          ${generateFind(it)}
+          ${generateFind(it, _config)}
           return null
         })
         ${getElements()}
