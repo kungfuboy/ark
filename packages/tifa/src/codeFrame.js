@@ -23,12 +23,12 @@ const findSelectElement = (el = null, label = '') => {
 const findButtonElement = (el = null, label = '') => {
   const eleLayer = el || document
   const btn = Array.from(eleLayer.querySelectorAll('button')).filter((it) =>
-    it.innerText.includes(label)
+    it.innerText.includes(label || '')
   )
   const input = Array.from(eleLayer.querySelectorAll('input'))
     .filter((it) => it.type !== 'hidden')
     .filter((it) => it.type === 'submit')
-    .filter((it) => it.value.includes(label))
+    .filter((it) => it.value.includes(label || ''))
   return btn.concat(input)
 }
 

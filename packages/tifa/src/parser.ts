@@ -53,8 +53,8 @@ const parseElement = (el: string) => {
   if (['button', 'input', 'select', 'label', 'img'].includes(name.trim())) {
     result.name = name.trim()
   }
-  if (/(?<= ').+(?=')/.test(el)) {
-    result.value = `'${el.match(/(?<= ').+(?=')/).at(0)}'`
+  if (/(?<= ").+(?=")/.test(el)) {
+    result.value = `'${el.match(/(?<= ").+(?=")/).at(0)}'`
   }
   const [, condition] = matchCouple(el)('{', '}')
   if (condition) {

@@ -99,7 +99,7 @@ const generateFind = ({ value }, config: any) => {
     .find(it => it.flat(1).every(item => item.length > 0))
 
     if (elementMatrix == null) {
-      throw new Error('元素定位无解')
+      throw new Error('元素定位无解(${random()})')
     }
     console.log('filter elementMatrix', elementMatrix)
 
@@ -244,6 +244,13 @@ const generateAction = ({ targetType, target, action }: any) => {
     if (action === 'click') {
       return `await ${target}.click()
       await wait(200)`
+    }
+    if (action === 'hover') {
+      return `{
+        const box = await ${target}.boundingBox();
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        await wait(200)
+      }`
     }
   }
   if (targetType === 'label') {
