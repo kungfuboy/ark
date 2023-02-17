@@ -12,10 +12,10 @@ const findSelectElement = (el = null, label = '') => {
     .filter((it) => it.type !== 'hidden')
     .filter((it) => it.type !== 'submit')
     .filter((it) => it.type !== 'radio')
-    .filter((it) => it.value.indexOf(label.trim()) >= 0)
+    .filter((it) => it.value.indexOf(label?.trim()) >= 0)
   const other = Array.from(eleLayer.getElementsByTagName('*'))
     .filter((it) => it.children.length === 0 && it.innerText)
-    .filter((it) => it.textContent.trim() === label.trim())
+    .filter((it) => it.textContent?.trim() === label?.trim())
 
   return select.concat(input).concat(other)
 }
